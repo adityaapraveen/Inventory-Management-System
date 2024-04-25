@@ -1,100 +1,92 @@
 <!doctype html>
 <html lang="en" xmlns:th="https://www.thymeleaf.com">
-<head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-<title>Book Store</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Inventory Store</title>
 </head>
+
 <body>
 
-
-	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand text-white" href="#">Inventory Store</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
+			<a class="navbar-brand" href="#">Inventory Store</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link text-white"
-						href="available_books">Available Items</a></li>
-					<li class="nav-item"><a class="nav-link text-white" href="my_books">My
-							Books</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="available_books">Available Items</a></li>
+					<li class="nav-item"><a class="nav-link" href="my_books">My Items</a></li>
 				</ul>
 				<div>
-					<a class="nav-link text-white" href="book_register">New Item
-						Register</a>
+					<a class="btn btn-outline-light" href="book_register">New Item Register</a>
 				</div>
 			</div>
 		</div>
 	</nav>
 
-	<div class="container my-5 p-5" style="border:1px solid black;">
-		<h4 class="text-center">Edit Item Here</h4>
-		<form class="col-md-4 offset-md-4" th:action="@{/save}" method="post" th:object="${book}">
-			
-			<input type="hidden" name="product_id" th:value="${book.product_id}"/>
-			<div class="mb-3">
-				<label for="name" class="form-label">Name
-					</label> <input type="text" class="form-control" name="name" th:value="${book.name}">	
+	<div class="container my-5 p-5 rounded border shadow-sm">
+		<h4 class="text-center mb-4">Edit Item</h4>
+		<form class="row g-3" th:action="@{/save}" method="post" th:object="${book}">
+			<input type="hidden" name="product_id" th:value="${book.product_id}" />
+			<div class="col-md-6">
+				<label for="name" class="form-label">Name</label>
+				<input type="text" class="form-control" name="name" th:value="${book.name}">
 			</div>
-			
-			<div class="mb-3">
-				<label for="category" class="form-label">Category
-					</label> <input type="text" class="form-control" name="category" th:value="${book.category}">	
+
+			<div class="col-md-6">
+				<label for="category" class="form-label">Category</label>
+				<input type="text" class="form-control" name="category" th:value="${book.category}">
 			</div>
-			<div class="mb-3">
-				<label for="price" class="form-label">Price
-					</label> <input type="number" class="form-control" name="price" th:value="${book.price}">	
+
+			<div class="col-md-6">
+				<label for="price" class="form-label">Price</label>
+				<input type="number" class="form-control" name="price" th:value="${book.price}">
 			</div>
-			<div class="mb-3">
-				<label for="quantity" class="form-label">Quantity
-				</label> <input type="number" class="form-control" name="quantity" th:value="${book.quantity}">
+
+			<div class="col-md-6">
+				<label for="quantity" class="form-label">Quantity</label>
+				<input type="number" class="form-control" name="quantity" th:value="${book.quantity}">
 			</div>
-			<div class="mb-3">
+
+			<div class="col-md-6">
 				<label for="updated_at" class="form-label">Updated at</label>
 				<input type="text" class="form-control" name="updated_at" placeholder="YYYY-MM-DD HH:MM:SS">
 			</div>
-			<div class="mb-3">
+
+			<div class="col-md-6">
 				<input type="hidden" name="created_at" th:value="${book.created_at}">
 			</div>
-			<!-- <div class="mb-3">
-				<label for="expiry_date" class="form-label">Expiry Date
-				</label> <input type="text" class="form-control" name="expiryDate" placeholder="YYYY-MM-DD">
-			</div> -->
-			<div class="mb-3">
+
+			<div class="col-md-6">
 				<label for="expiry_date" class="form-label">Expiry Date</label>
 				<input type="date" class="form-control" name="expiry_date"
 					th:value="${book != null ? book.expiryDate : ''}" placeholder="YYYY-MM-DD">
 			</div>
-			<center><button type="submit" class="btn btn-primary">Submit</button></center>
+
+			<div class="col-12 text-center mt-4">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
 		</form>
 	</div>
 
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
 		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
 
 </body>
+
 </html>
